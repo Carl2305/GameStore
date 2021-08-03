@@ -1,0 +1,152 @@
+﻿
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_LayoutPanelIntranet.cshtml";
+}
+
+<center><h2 class="mt-2">Products</h2></center>
+
+@*<div class="container mt-3 mb-3 d-flex justify-content-end" style="position:relative;">
+    <button class="btn btn-success" id="addProduct">Agregar Prducto</button>
+</div>*@
+<div class="row mt-5">
+    <div class="col-3 col-md-4 col-lg-5 d-flex justify-content-end pt-3">
+
+    </div>
+    <div class="col-12 col-md-8 col-lg-7 d-flex mb-5">
+        <input class="form-control form-control-lg mr-md-5" type="search" placeholder="Nombre o Categoria" id="barSearchProduct" />
+        <div class="btn-group">
+            <button class="btn btn-primary" id="btn_SearchProduct">Buscar</button>
+            <button class="btn btn-success" id="addProduct">Nuevo</button>
+        </div>
+    </div>
+</div>
+<style>
+    .descip_prod {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
+
+
+
+<div class="row" id="ListProducts">
+</div>
+
+<div class="modal" tabindex="-1" id="modalNewPruduct">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Nuevo Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" id="formNewProyect" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Nombre Producto</label><br>
+                            <input type="text" class="form-control" name="Nomb_Product" id="Nomb_Product" maxlength="20">
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Precio</label><br>
+                                    <input class="form-control" maxlength="8" name="Precio" id="Precio" type="text">
+                                </div>
+                                <div class="col-6">
+                                    <label>Stock</label><br>
+                                    <input class="form-control" maxlength="5" name="Stock" id="Stock" type="number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label>Categoria</label><br>
+                            @Html.DropDownList("categ", (SelectList)ViewBag.DROPDOWN_CATEGORIAS, "-Seleccione-", new { @id = "cbo_categoria", @class = "form-control" })
+                        </div>
+                        <div class="col-12">
+                            <label>Descripción</label><br>
+                            <textarea class="form-control" rows="3" name="descripcion" id="txtA_descripcion"></textarea>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label>Seleccionar Imagen</label>
+                            <input type="file" name="uploadimg" size="1" accept="image/png, image/jpeg, image/jpg" id="uploadimg" style="width: 155px;">
+                        </div>
+                        <div class="col-12 mt-2" id="imgP">
+                            <img class="img-fluid" id="imgPreview">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btnAddGuardar">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" tabindex="-1" id="modalUpdatePruduct">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Producto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" id="formPutProyect" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Nombre Producto</label><br>
+                            <input type="text" class="form-control" name="Nomb_Product" id="Nomb_ProductPut" maxlength="20">
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Precio</label><br>
+                                    <input class="form-control" maxlength="8" name="Precio" id="PrecioPut" type="text">
+                                </div>
+                                <div class="col-6">
+                                    <label>Stock</label><br>
+                                    <input class="form-control" maxlength="5" name="Stock" id="StockPut" type="number">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label>Categoria</label><br>
+                            @Html.DropDownList("categ", (SelectList)ViewBag.DROPDOWN_CATEGORIAS, "-Seleccione-", new { @id = "cbo_categoriaPut", @class = "form-control" })
+                        </div>
+                        <div class="col-12">
+                            <label>Descripción</label><br>
+                            <textarea class="form-control" rows="3" name="descripcion" id="txtA_descripcionPut"></textarea>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label class="switch">
+                                <input type="checkbox" id="putImgProd">
+                                <span class="slider round"></span>
+                            </label>
+                            <label class="">Modificar Imagen NO/SI</label>
+                        </div>
+                        <div class="col-12 mt-1 d-none" id="divInputImg">
+                            <label>Seleccionar Imagen</label>
+                            <input type="file" name="uploadimg" size="1" accept="image/png, image/jpeg" id="uploadimg" style="width: 155px;">
+                        </div>
+                        <div class="col-12 mt-2" id="imgP">
+                            <img class="img-fluid" id="imgPreview">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btnPutGuardar">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

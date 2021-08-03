@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_LayoutPanelIntranet.cshtml";
+}
+<style>
+    .container-lg input {
+        color: black;
+    }
+</style>
+<div class="container-lg">
+    <center class="mt-5 mb-5"><h1>Datos del Empleado</h1></center>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 d-flex justify-content-center">
+            <img class="img-thumbnail border-info" style="width: 260px; height: 290px;" id="Foto_Empleado">
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 mt-4">
+            <h4 class="text-center">Datos Personales</h4>
+            <label>Nombres</label>
+            <input class="form-control" type="text" id="Nombre_Empleado" maxlength="20" placeholder="Nombre" readonly>
+            <label>Apellidos</label>
+            <input class="form-control" type="text" id="Apellidos_Empleado" placeholder="Apellidos" readonly>
+            <label>Teléfono</label>
+            <input class="form-control col-md-5 col-lg-4" type="text" id="Telf_Empleado" placeholder="Teléfono" readonly>
+            <label>Correo Electrónico</label>
+            <input class="form-control" type="text" id="Correo_Empleado" placeholder="email" readonly>
+            <label>Dirección</label>
+            <input class="form-control" type="text" id="Direccion" placeholder="Dirección" readonly>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 mt-5">
+            <h4 class="text-center">Otros Datos</h4>
+            <label>Usuario</label>
+            <input class="form-control" type="text" id="Usuario_Empleado" placeholder="Usuario" readonly>
+            <label>Cargo</label>
+            <input class="form-control" type="text" id="Cargo_Empleado" placeholder="Cargo" readonly>
+            <label>Estado</label>
+            <input class="form-control" type="text" id="Estado" placeholder="Estado" readonly>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-6 mt-5 d-flex justify-content-center align-items-center">
+            <div class="btn-group-lg btn-group-vertical">
+                <button class="btn btn-warning" id="btn_edit_Employee">Actualizar Foto</button>
+                <button class="btn btn-warning" id="btn_edit_PassEmployee">Actualizar Contraseña</button>
+            </div>
+        </div>
+    </div>
+    <center class="mt-4 text-info"><h5>Si necesitas actualizar más datos, llame al administrador del sistema</h5></center>
+</div>
+<div class="modal" tabindex="-1" id="modalUpdateEmpleado">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Actualiza tus Foto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" id="formPutEmpleado" enctype="multipart/form-data">
+                    <div class="row">
+                        @*<div class="col-12">
+                                <label>Télfono</label><br>
+                                <input type="text" class="form-control" name="Telf_Emple" id="Telf_Emple" maxlength="15" required>
+                            </div>*@
+                        <div class="col-12 mt-3 d-inline-flex">
+                            <label class="switch">
+                                <input type="checkbox" id="putImgEmple">
+                                <span class="slider round"></span>
+                            </label>
+                            <h6 class="ml-2 pt-2">Modificar Foto</h6>
+                        </div>
+                        <div class="col-12 d-none" id="divInputImgText">
+                            <label class="text-info">Recuerda que se trata de una foto Formal.</label>
+                        </div>
+                        <div class="col-12 mt-1 d-none" id="divInputImg">
+                            <label>Seleccionar Imagen</label>
+                            <input type="file" name="uploadimg" size="1" accept="image/png, image/jpeg" id="uploadimg" style="width: 155px;">
+                        </div>
+                        <div class="col-12 mt-2" id="imgP">
+                            <img class="img-fluid" id="imgPreview">
+                        </div>
+                        <hr />
+                        <div class="col-12 mt-3">
+                            <label class="text-info">Si necesitas actualizar más datos, llame al administrador del sistema</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btnPutGuardarEmple">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" id="modalUpdatePassEmpleado">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form autocomplete="off" id="formPutPassEmpleado" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title">Actualiza tu Contraseña</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label>Contraseña Actual</label>
+                            <input type="password" class="form-control" id="PassOld" name="txtPassOld" />
+                        </div>
+                        <div class="col-12">
+                            <label>Contraseña Nueva</label>
+                            <input type="password" class="form-control" id="PassNew" name="txtPassNew" />
+                        </div>
+                        <div class="col-12">
+                            <label>Confirmar Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="PassConf" name="txtPassConf" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-success" id="btnPutPassGuardarEmple">Guardar</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

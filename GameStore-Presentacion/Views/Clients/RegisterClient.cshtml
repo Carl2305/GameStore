@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "RegisterClient";
+}
+
+<div class="mt-5 border border-info rounded">
+    <form class="row p-3" role="form" autocomplete="off" method="post" id="form_regist_client">
+        <div class="col-12 col-md-6">
+            <label for="nomb_client">Nombre</label>
+            <input class="form-control" type="text" name="nomb_client" id="nomb_client" placeholder="Nombres" />
+        </div>
+        <div class="col-12 col-md-6">
+            <label for="ape_client">Apellidos</label>
+            <input class="form-control" type="text" name="ape_client" id="ape_client" placeholder="Apellidos" />
+        </div>
+        <div class="col-12 col-md-6">
+            <label for="telf_client">Teléfono</label>
+            <input class="form-control" type="text" name="telf_client" id="telf_client" placeholder="Teléfono" />
+        </div>
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                    <label>Tipo Documento</label>
+                    <select class="form-control" name="T_Documento" id="T_Documento"></select>
+                </div>
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                    <label>N° Doc. Identidad</label>
+                    <input class="form-control" maxlength="15" name="Doc_Identidad" id="Doc_Identidad" type="text" />
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <center><label class="mt-2">Lugar de Residencia</label></center>
+            <div class="row">
+                <div class="col-12 col-sm-4 col-md-4">
+                    <label>Departamento</label>
+                    <select class="form-control" name="Departamento" id="Departamento"></select>
+                </div>
+                <div class="col-12 col-sm-4 col-md-4">
+                    <label>Provincia</label>
+                    <select class="form-control" name="Provincia" id="Provincia"></select>
+                </div>
+                <div class="col-12 col-sm-4 col-md-4">
+                    <label>Distrito</label>
+                    <select class="form-control" name="Distrito" id="Distrito"></select>
+                </div>
+            </div>
+        </div>
+        <div class="col-12">
+            <label for="direcc_client">Dirección</label>
+            <input class="form-control" type="text" name="direcc_client" id="direcc_client" placeholder="Dirección" />
+        </div>
+        <div class="col-12">
+            <label for="email_client">Correo Electrónico</label>
+            <input class="form-control" type="text" name="email_client" id="email_client" placeholder="Correo Electrónico" />
+        </div>
+        <div class="col-12 mt-3 d-flex justify-content-center">
+            <button type="button" class="btn btn-info" id="regist_client">Registrar</button>
+        </div>
+    </form>
+</div>

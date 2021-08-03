@@ -1,0 +1,74 @@
+﻿@model IEnumerable<GameStore_Entidades.tb_Factura_Det>
+@{
+    ViewBag.Title = "DetailSale";
+    Layout = "~/Views/Shared/_LayoutPanelIntranet.cshtml";
+    decimal Total = ViewBag.IMPORTE_TOTAL ;
+    decimal igv = ViewBag.IGV;
+    decimal sTotal = Total - igv;
+}
+
+<div class="row m-1 m-md-4 m-lg-5">
+    <div class="col-12 col-sm-5 col-md-5 col-lg-5">
+        <div class="row rounded border border-info pt-3" id="ResumPedido">
+            <div class="col-12">
+                <h3 class="text-center">RESUMEN DEL PEDIDO N° @ViewBag.ID_FACTURA</h3>
+                <hr>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-5"><p>SubTotal (<span id="CantProd">@Model.Count()</span>)</p></div>
+                    <div class="col-7">
+                        <h5 class="d-flex justify-content-end" style="color:blue;">S/ @sTotal</h5>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-5"><p>IGV (18%) </p></div>
+                    <div class="col-7">
+                        <h5 class="d-flex justify-content-end" style="color:blue;">S/ @ViewBag.IGV</h5>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-4"><h4>TOTAL</h4></div>
+                    <div class="col-8">
+                        <h4 class="d-flex justify-content-end" style="color:red;">S/ @ViewBag.IMPORTE_TOTAL</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if(ViewBag.ESTADO==0){
+            <div class="col-12 d-flex justify-content-center pt-3 pb-3">
+                <button class="btn btn-info w-100" id="btnGestInvoice" data-codf="@ViewBag.ID_FACTURA">Gestionar Pago</button>
+            </div>
+        }
+    </div>
+    <div class="col-12 col-sm-7 col-md-7 col-lg-7">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Importe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model){
+                        <tr>
+                            <td>@item.Nomb_Product</td>
+                            <td>@item.Cantidad_Venta</td>
+                            <td>@item.Precio_Detalleventa</td>
+                            <td>@item.SubTotal_sale</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

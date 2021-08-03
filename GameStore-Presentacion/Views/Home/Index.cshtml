@@ -1,0 +1,42 @@
+﻿@model IEnumerable<GameStore_Entidades.tb_Producto>
+@{
+    ViewBag.Title = "Home Page";
+}
+<style>
+    .nombProduct {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
+<center><h1>Todos los productos</h1></center>
+<div class="row mt-5 mb-3" id="GalleryProducts">
+    @foreach (var item in Model)
+    {
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+            <div class="card mb-3">
+                <img src="@item.Imagen_Producto" class="card-img-top" alt="" title="@item.Nombre_Producto" height="250">
+                <div class="card-body">
+                    <div style="height: 8rem;">
+                        <h4 class="card-title nombProduct">@item.Nombre_Producto</h4>
+                        <h6 class="card-text">@item.Nombre_Categoria</h6>
+                        @*<p class="card-text" id="descrpicion">@item.Descripcion_producto</p>*@
+                        <h5 class="card-text text-center" id="precio">
+                            S/
+                            <span>
+                                @item.Precio_Producto
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        @using (Html.BeginForm("ProductDetail", "Products", FormMethod.Post, new { @class = "w-100" }))
+                        {
+                            <button type="submit" class="btn btn-primary w-100 btn-showDetail" name="code" value="@item.Id_Producto">Ver</button>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

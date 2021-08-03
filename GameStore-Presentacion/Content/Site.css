@@ -1,0 +1,87 @@
+﻿/*
+    Styles GameStore Copyright 2021
+*/
+
+/* 
+    Adaptamos las reglas al código que genera drupal y 
+definimos los estilos generales */
+
+/* Lo primero es posicionar el formulario para asegurarnos 
+que el efecto se produce de derecha a izquierda */
+.navbar-form {
+    display: inline-block;
+    position: relative;
+    right: 0px;
+    top: 0px;
+}
+
+    /* Definimos las transiciones */
+    .navbar-form .form-control[type=text] {
+        background: transparent;
+        display: inline-block;
+        transition: all .5s;
+    }
+        /* Al situar el puntero en el campo de búsqueda este cambia 
+su color de fondo a blanco, el color de la letra, el borde y la sombra */
+        .navbar-form .form-control[type=text]:focus {
+            background-color: #fff;
+            border-color: #729fcf;
+            color: #333;
+            -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+            -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+            box-shadow: 0 0 5px rgba(109,207,246,.5);
+        }
+/* Para pantallas grandes hacemos que el formulario se 
+despliegue con amplitud ya que disponemos de espacio en 
+la barra de navegación, la busqueda se ejecuta con intro 
+o pinchando en el icono de la lupa */
+@media (min-width:576px) {
+    .navbar-form input.form-control[type=text] {
+        width: 200px;
+    }
+
+        .navbar-form input.form-control[type=text]:focus {
+            width: 350px;
+        }
+}
+
+/* Para pantallas menores reducimos el campo de busqueda 
+y hacemos que se despliegue cuando hacemos focus sobre el 
+icono de la lupa. La busqueda se ejecuta con intro o 
+pinchando de nuevo en el icono de la lupa */
+@media (max-width: 576px) {
+    .navbar-form .form-control[type=text] {
+        width: 40px;
+        position: absolute;
+        right: 0px;
+        z-index: 1000;
+        padding: 8px 20px;
+        cursor: pointer;
+    }
+
+    .navbar-form,
+    .navbar-form div.input-group {
+        width: 40px;
+        height: 40px;
+    }
+
+        .navbar-form .form-control[type=text]:focus {
+            padding: 8px 12px;
+            position: absolute;
+            right: 40px;
+            width: 150px;
+        }
+}
+
+/* Para pantallas de smartphones ajustamos el ancho del campo de busqueda */
+@media (max-width: 375px) {
+    .navbar-form .form-control[type=text]:focus {
+        width: 150px;
+    }
+
+    .navbar-form {
+        display: none;
+    }
+}
+
+

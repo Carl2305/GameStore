@@ -1,0 +1,205 @@
+﻿@model IEnumerable<GameStore_Entidades.tb_Empleado>
+@{
+    ViewBag.Title = "Employees";
+    Layout = "~/Views/Shared/_LayoutPanelIntranet.cshtml";
+}
+
+<div class="row mt-5">
+    <div class="col-3 col-md-4 col-lg-6 d-flex justify-content-end pt-3">
+        
+    </div>
+    <div class="col-12 col-md-8 col-lg-6 d-flex mb-5">
+        <input class="form-control form-control-lg mr-md-5" type="search" placeholder="N° Doc. Identidad" id="barSearchEmployee" />
+        <div class="btn-group">
+            <button class="btn btn-primary" id="btn_SearchEmployee">Buscar</button>
+            <button class="btn btn-success" id="btn_NewEmployee">Nuevo</button>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="table-responsive" id="ListDataAllEmple">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>F. Nacimiento</th>
+                        <th>Distrito</th>
+                        <th>Dirección</th>
+                        <th>N° Doc. Identidad</th>
+                        <th>Teléfono</th>
+                        <th>Correo Eléctronico</th>
+                        <th>Estado</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="body_tabEmployees">
+                </tbody>
+            </table>
+        </div>
+        <div id="messageError"></div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" id="modalAddNewEmployee">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Nuevo Empleado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" id="formNewEmployee" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6">
+                                    <label>Nombres</label>
+                                    <input type="text" class="form-control" name="Nomb_Employee" id="Nomb_Employee" maxlength="50">
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6">
+                                    <label>Apellidos</label>
+                                    <input type="text" class="form-control" name="Apel_Employee" id="Apel_Employee" maxlength="50">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <label>F. Nacimiento</label>
+                                    <input class="form-control" name="F_Nacimiento" id="F_Nacimiento" type="date">
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <label>Teléfono</label>
+                                    <input class="form-control" maxlength="15" name="Telefono" id="Telefono" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <label>Tipo Documento</label>
+                                    <select class="form-control" name="T_Documento" id="T_Documento"></select>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                    <label>N° Doc. Identidad</label>
+                                    <input class="form-control" maxlength="15" name="Doc_Identidad" id="Doc_Identidad" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <center><label class="mt-2">Lugar de Residencia</label></center>
+                            <div class="row">
+                                <div class="col-12 col-sm-4 col-md-4">
+                                    <label>Departamento</label>
+                                    <select class="form-control" name="Departamento" id="Departamento"></select>
+                                </div>
+                                <div class="col-12 col-sm-4 col-md-4">
+                                    <label>Provincia</label>
+                                    <select class="form-control" name="Provincia" id="Provincia"></select>
+                                </div>
+                                <div class="col-12 col-sm-4 col-md-4">
+                                    <label>Distrito</label>
+                                    <select class="form-control" name="Distrito" id="Distrito"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6">
+                                    <label>Dirección</label>
+                                    <input class="form-control" name="Direccion" id="Direccion" type="text">
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6">
+                                    <label>Correo Eléctronico</label>
+                                    <input class="form-control" name="Email_Employee" id="Email_Employee" type="email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label>Cargo a Ostentar</label>
+                            <select class="form-control" name="idCargo" id="idCargo"></select>
+                        </div>
+                        <div class="col-12" id="">
+                            <label class="text-info">Recuerda que se trata de una foto Formal.</label>
+                        </div>
+                        <div class="col-12 mt-1">
+                            <label>Seleccionar Imagen</label>
+                            <input type="file" name="uploadimg" size="1" accept="image/png, image/jpeg, image/jpg" id="uploadimg" style="width: 155px;">
+                        </div>
+                        <div class="col-12 mt-2" id="imgP">
+                            <img class="img-fluid" id="imgPreview">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btnAddGuardarEmployee">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+@* ---------------------------------------------------- *@
+<div class="modal" tabindex="-1" id="modalUpdateEmployee">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar Nuevo Empleado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form autocomplete="off" id="formUpdateEmployeeA" enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="col-12 mt-3">
+                            <label class="switch">
+                                <input type="checkbox" id="chkDireccEmployee">
+                                <span class="slider round"></span>
+                            </label>
+                            <label class="">Modificar Direccion NO / SI</label>
+                        </div>
+                        <div class="col-12 d-none" id="divModDireccEmployee">
+                            <center><label class="mt-2">Lugar de Residencia</label></center>
+                            <div class="row">
+                                <div class="col-12 col-sm-4 col-md-4">
+                                    <label>Departamento</label>
+                                    <select class="form-control" name="Departamento" id="PutDepartamento"></select>
+                                </div>
+                                <div class="col-12 col-sm-4 col-md-4">
+                                    <label>Provincia</label>
+                                    <select class="form-control" name="Provincia" id="PutProvincia"></select>
+                                </div>
+                                <div class="col-12 col-sm-4 col-md-4">
+                                    <label>Distrito</label>
+                                    <select class="form-control" name="Distrito" id="PutDistrito"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <label>Dirección</label>
+                            <input class="form-control" name="Direccion" id="PutDireccion" type="text" readonly>
+                        </div>
+                        <div class="col-12">
+                            <label>Teléfono</label>
+                            <input class="form-control" maxlength="15" name="Telefono" id="PutTelefono" type="text">
+                        </div>
+                        <div class="col-12">
+                            <label>Cargo a Ostentar</label>
+                            <select class="form-control" name="idCargo" id="PutidCargo"></select>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <label class="text-info">La actualización de la Foto, lo puedee realizar el mismo usuario desde la configuración de su perfil.</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="btnPutGuardarEmployee">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
